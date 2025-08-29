@@ -16,12 +16,15 @@ public class User implements Subscriber {
     private UserType userType;
 
     
-    public User(String name, String email, UserType userType) {
-        this.id = UUID.randomUUID();
+    public User(UUID id, String name, String email, UserType userType) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.userType = userType;
-
+    }
+    
+    public User(String name, String email, UserType userType) {
+        this(UUID.randomUUID(), name, email, userType);
     }
 
     public UUID getId() {

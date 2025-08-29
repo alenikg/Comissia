@@ -29,7 +29,7 @@
   </build>
   <properties>
     <maven.compiler.target>22</maven.compiler.target>
-    <exec.mainClass>com.mycompany.comissiatask.ComissiaTask</exec.mainClass>
+    <exec.mainClass>com.mycompany.comissiatask.NewJFrame</exec.mainClass>
     <maven.compiler.source>22</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>

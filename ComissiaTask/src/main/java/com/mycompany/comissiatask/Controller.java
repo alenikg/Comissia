@@ -15,11 +15,14 @@ public class Controller {
     private ArrayList<User> users;
     private Publisher publisher;
     private DisplayStrategy displayStrategy;
+    private YamlService yamlService;
 
     public Controller() {
         this.faker = new Faker();
         this.users = new ArrayList<>();
         this.publisher = new Publisher();
+        this.yamlService = new YamlService();
+        UserFactory.setYamlService(yamlService);
         this.displayStrategy = new SimpleDisplayStrategy();
     }
 
@@ -31,26 +34,22 @@ public class Controller {
         view.clearField();
         users.clear();
 
-        for (int i = 0; i < 5; i++) {
-            String name = faker.name().fullName();
-            String email = faker.internet().emailAddress();
-            UserType userType = new Random().nextBoolean() ? UserType.PREMIUM : UserType.REGULAR;
+        users.addAll(UserFactory.createUsers());
 
-            User user = UserFactory.createUser(name, email, userType);
-            users.add(user);
-
-            if (userType == UserType.PREMIUM) {
+        for (User user : users) {
+            if (user.getUserType() == UserType.PREMIUM) {
                 publisher.subscribe(user);
             }
         }
-        StringBuilder ctreatedUsers = new StringBuilder();
+
+        StringBuilder createdUsers = new StringBuilder();
         for (User user : users) {
-            ctreatedUsers.append(user.getSimpleStrUser())
+            createdUsers.append(user.getSimpleStrUser())
                     .append(" | Тип: ")
                     .append(user.getUserType())
                     .append("\n");
         }
-        view.setTextArea(ctreatedUsers.toString());
+        view.setTextArea(createdUsers.toString());
     }
 
     public void setDisplayStrategy(DisplayStrategy strategy) {

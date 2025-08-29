@@ -10,6 +10,7 @@ import com.github.javafaker.Faker;
  *
  * @author elenagoncarova
  */
+
 public class NewJFrame extends javax.swing.JFrame {
 
     private User user;
@@ -125,6 +126,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+
         if (controller != null) {
             int selectedIndex = jComboBox1.getSelectedIndex();
             switch (selectedIndex) {
@@ -137,22 +139,21 @@ public class NewJFrame extends javax.swing.JFrame {
                 case 2:
                     controller.setDisplayStrategy(new JsonDisplayStrategy());
                     break;
-                       
+                default:
+                    controller.setDisplayStrategy(new SimpleDisplayStrategy());
             }
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> {
-            NewJFrame view = new NewJFrame();
-            Controller controller = new Controller();
-
-            view.setController(controller);
-            controller.setView(view);
-
-            view.setVisible(true);
-        });
-    }
+    java.awt.EventQueue.invokeLater(() -> {
+        NewJFrame view = new NewJFrame();
+        Controller controller = new Controller();
+        view.setController(controller);
+        controller.setView(view);
+        view.setVisible(true);
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
