@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 /**
  *
  * @author elenagoncarova
@@ -79,7 +78,8 @@ public class YamlService {
                 User user = UserFactory.createUser(
                         (String) data.get("name"),
                         (String) data.get("email"),
-                        UserType.valueOf((String) data.get("userType"))
+                        UserType.valueOf((String) data.get("userType")),
+                        "YAML"
                 );
                 users.add(user);
             }

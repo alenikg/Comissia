@@ -14,9 +14,10 @@ import java.util.Random;
  *
  * @author elenagoncarova
  */
-public class UserFactory {
 
+public class UserFactory {
     private static YamlService yamlService;
+    private static DatabaseService databaseService;
     private static Faker faker = new Faker();
     private static Random random = new Random();
 
@@ -24,8 +25,16 @@ public class UserFactory {
         yamlService = service;
     }
 
-    public static User createUser(String name, String email, UserType userType) {
-        return new User(name, email, userType);
+    public static void setDatabaseService(DatabaseService service) {
+        databaseService = service;
+    }
+
+    public static User createUser(String name, String email, UserType userType, String dataSource) {
+        User user = new User(name, email, userType);
+        if (databaseService != null) {
+            databaseService.saveUser(user, dataSource);
+        }
+        return user;
     }
 
     public static List<User> createUsers() {
@@ -35,6 +44,11 @@ public class UserFactory {
             if (yamlService != null) {
                 List<User> yamlUsers = yamlService.loadUsersFromYaml(3);
                 if (yamlUsers != null) {
+                    for (User user : yamlUsers) {
+                        if (databaseService != null) {
+                            databaseService.saveUser(user, "YAML");
+                        }
+                    }
                     users.addAll(yamlUsers);
                 }
             }
@@ -46,8 +60,11 @@ public class UserFactory {
             String name = faker.name().fullName();
             String email = faker.internet().emailAddress();
             UserType userType = random.nextBoolean() ? UserType.PREMIUM : UserType.REGULAR;
-            users.add(createUser(name, email, userType));
+            
+            User user = createUser(name, email, userType, "FAKER");
+            users.add(user);
         }
+
         return users;
     }
 }

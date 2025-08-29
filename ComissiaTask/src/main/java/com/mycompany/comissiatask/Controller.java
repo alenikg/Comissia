@@ -16,13 +16,17 @@ public class Controller {
     private Publisher publisher;
     private DisplayStrategy displayStrategy;
     private YamlService yamlService;
+    private DatabaseService databaseService;
 
     public Controller() {
         this.faker = new Faker();
         this.users = new ArrayList<>();
         this.publisher = new Publisher();
         this.yamlService = new YamlService();
+        this.databaseService = new DatabaseService();
+        
         UserFactory.setYamlService(yamlService);
+        UserFactory.setDatabaseService(databaseService);
         this.displayStrategy = new SimpleDisplayStrategy();
     }
 
@@ -72,4 +76,16 @@ public class Controller {
     public Publisher getPublisher() {
         return publisher;
     }
+    
+    public void handleClearDatabase() {
+        databaseService.clearDatabase();
+        view.setTextArea("База данных очищена. Начните новый сеанс.");
+    }
+
+    public void close() {
+        if (databaseService != null) {
+            databaseService.close();
+        }
+    }
 }
+
