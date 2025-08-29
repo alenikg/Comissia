@@ -18,7 +18,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.mycompany.comissiatask.ComissiaTask</mainClass>
+                  <mainClass>com.mycompany.comissiatask.NewJFrame</mainClass>
                 </transformer>
               </transformers>
             </configuration>

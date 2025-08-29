@@ -63,7 +63,7 @@ public class User implements Subscriber {
         }
     }
     
-    public String getStrUser() {
+    public String getSimpleStrUser() {
         return name + " | " + email;
     }
        
